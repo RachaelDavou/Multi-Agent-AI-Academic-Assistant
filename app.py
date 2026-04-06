@@ -83,10 +83,7 @@ def get_orchestrator() -> OrchestratorAgent:
     return st.session_state.orchestrator
 
 
-# Function to index all catalogue docs into ChromaDB once per session.
-# On Streamlit Cloud (detected via /mount/src path), skips auto-embedding
-# because the ephemeral filesystem resets on every cold start and embedding
-# large PDFs blocks the health check. Users can upload files instead.
+# Function to index all catalogue docs into ChromaDB once per session
 def ensure_catalogue_indexed():
     if st.session_state.catalogue_indexed:
         return
@@ -97,12 +94,11 @@ def ensure_catalogue_indexed():
     ])
     st.session_state.available_courses = [f.stem for f in catalogue_files]
 
-    # Detect Streamlit Cloud by checking the mount path
-    on_cloud = Path("/mount/src").exists()
-
-    if catalogue_files and not on_cloud:
+    if catalogue_files:
         store = get_catalogue_store()
         # Only embed if the collection is empty — skips re-embedding on restart
+        # On Streamlit Cloud the pre-built chroma_db is pulled from the repo,
+        # so this block is skipped entirely on cold starts
         if store._collection.count() == 0:
             docs = []
             for f in catalogue_files:
@@ -339,10 +335,6 @@ def render_catalogue():
     st.markdown("### Pre-loaded Course Materials")
     st.markdown("<p style='color:#64748B;font-size:0.9rem'>Select which courses the AI should focus on. Unselected courses are still searchable but deprioritized.</p>", unsafe_allow_html=True)
 
-    # On Streamlit Cloud, auto-embedding is disabled to prevent startup timeouts.
-    # Show a notice so users know to upload files for RAG-grounded answers.
-    if Path("/mount/src").exists():
-        st.info("ℹ️ Running on Streamlit Cloud — pre-loaded course materials are listed below but not auto-indexed. Upload a PDF below to enable RAG-grounded answers for this session.")
 
     catalogue_files = sorted([
         f for f in Path(COURSE_CATALOGUE_DIR).iterdir()
@@ -379,17 +371,6 @@ def render_catalogue():
                             selected.remove(name)
                         else:
                             selected.append(name)
-                            # Embed this PDF on demand if not already in the store
-                            store = get_catalogue_store()
-                            already_indexed = store._collection.count() > 0 and any(
-                                m.get("source") == name
-                                for m in (store._collection.get(where={"source": name}, limit=1).get("metadatas") or [])
-                            )
-                            if not already_indexed:
-                                with st.spinner(f"Indexing {name}..."):
-                                    docs = load_file(str(f), source_label=name)
-                                    if docs:
-                                        add_documents(store, docs)
                         changed = True
 
         if changed:

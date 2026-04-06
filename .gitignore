@@ -1,0 +1,43 @@
+# Environment & secrets
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# User uploads — transient, not committed
+data/uploads/
+
+# Large PDFs — only the 2 smallest are kept in the repo (36 MB + 58 MB)
+data/course_catalogue/Principles of Data Science.pdf
+data/course_catalogue/Python Programming.pdf
+
+# Old/draft files not needed in the repo
+sample.pdf
+presentation_v2.pptx
+presentation_v3.pptx
+presentation_slidesgo.pptx
+Professional Internship Defense by Slidesgo.pptx
+build_slides.py
+build_slides_v2.py
+build_slides_v3.py
+edit_slidesgo_template.py
