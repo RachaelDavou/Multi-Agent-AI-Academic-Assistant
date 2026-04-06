@@ -142,9 +142,8 @@ See `notebooks/academic_assistant_demo.ipynb` for a full walkthrough of the pipe
 
 ## Submission Links
 
-- **Live App:** [Add Streamlit Cloud URL here]
+- **Live App:** (https://multi-agent-ai-academic-assistant-gc3etkh6nrr6yhutnh3pgz.streamlit.app/)
 - **GitHub Repo:** (https://github.com/RachaelDavou/Multi-Agent-AI-Academic-Assistant)
-- **Jupyter Notebook:** [notebooks/academic_assistant_demo.ipynb](notebooks/academic_assistant_demo.ipynb)
 - **Raw Dataset:** [data/course_catalogue/](data/course_catalogue/)
 - **Cleaned Dataset:** `data/chroma_db/` (generated on first run from the PDFs)
 - **Presentation Slides (PDF):** (https://raw.githubusercontent.com/RachaelDavou/Multi-Agent-AI-Academic-Assistant/main/Presentation.pdf)
