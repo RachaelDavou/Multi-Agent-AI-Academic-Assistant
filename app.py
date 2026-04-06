@@ -185,7 +185,7 @@ def render_sidebar():
             st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
         # Reset button wipes all session state and restarts
-        if st.button("Reset Session", width='stretch'):
+        if st.button("Reset Session", use_container_width=True):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
@@ -394,7 +394,7 @@ def render_catalogue():
         label_visibility="collapsed",
     )
 
-    if uploaded and st.button("Index Files", width='stretch'):
+    if uploaded and st.button("Index Files", use_container_width=True):
         with st.spinner("Processing files..."):
             _process_uploads(uploaded)
 
@@ -406,7 +406,7 @@ def render_catalogue():
                 f"<div class='catalogue-card--active'><span style='margin-right:8px'>📎</span><span style='color:#1E293B;font-weight:500'>{name}</span></div>",
                 unsafe_allow_html=True,
             )
-        if st.button("Clear All Uploads", width='stretch'):
+        if st.button("Clear All Uploads", use_container_width=True):
             clear_upload_store()
             st.session_state.student_session.uploaded_files = []
             _rebuild_retriever()
@@ -517,7 +517,7 @@ def render_quiz():
     with col2:
         num_q = st.number_input("Number of questions", min_value=1, max_value=20, value=5, step=1)
 
-    if st.button("Generate Quiz", width='stretch') and topic:
+    if st.button("Generate Quiz", use_container_width=True) and topic:
         orch = get_orchestrator()
         with st.spinner("Generating quiz..."):
             # handle_quiz now returns a ready-to-use list — no text parsing needed
@@ -558,7 +558,7 @@ def render_quiz():
             st.caption(f"{answered}/{len(questions)} answered")
 
             # Submit button stays disabled until all questions are answered
-            if st.button("Submit Quiz ✓", width='stretch', disabled=(answered < len(questions))):
+            if st.button("Submit Quiz ✓", use_container_width=True, disabled=(answered < len(questions))):
                 score = sum(
                     1 for i, q in enumerate(questions)
                     if st.session_state.quiz_answers.get(i) == q["answer"]
@@ -607,7 +607,7 @@ def render_quiz():
                     unsafe_allow_html=True,
                 )
 
-            if st.button("Take Another Quiz", width='stretch'):
+            if st.button("Take Another Quiz", use_container_width=True):
                 st.session_state.quiz_state = None
                 st.session_state.quiz_answers = {}
                 st.session_state.quiz_submitted = False
@@ -650,7 +650,7 @@ def render_analytics():
             yaxis=dict(tickfont=dict(color="#FFFFFF", size=12), title_font=dict(color="#FFFFFF"),
                        gridcolor="#334155"),
         )
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     if data["topics_studied"]:
         st.markdown("#### Topics Coverage")
@@ -673,7 +673,7 @@ def render_analytics():
             ),
             margin=dict(t=60, b=40, l=20, r=20),
         )
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     if data["weak_areas"]:
         st.markdown("#### Weak Areas")
@@ -759,7 +759,7 @@ def render_summarizer():
 
     st.markdown("---")
 
-    if text_to_summarize and st.button("Generate Summary", width='stretch'):
+    if text_to_summarize and st.button("Generate Summary", use_container_width=True):
         with st.spinner("Summarizing..."):
             summary = orch.tutor.summarize(text_to_summarize)
         if source_label:
