@@ -776,7 +776,7 @@ def main():
     load_css()
 
     if not os.getenv("OPENAI_API_KEY"):
-        st.error("⚠️ OPENAI_API_KEY not found. Please add it to your .env file.")
+        st.error("OPENAI_API_KEY not found. Please add it to your .env file.")
         st.stop()
 
     page = render_sidebar()
