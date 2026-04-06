@@ -102,7 +102,8 @@ def ensure_catalogue_indexed():
             for f in catalogue_files:
                 docs.extend(load_file(str(f), source_label=f.stem))
             if docs:
-                add_documents(store, docs)
+                # Cap at 400 chunks to stay within Streamlit Cloud memory limits
+                add_documents(store, docs[:400])
 
     st.session_state.catalogue_indexed = True
     _rebuild_retriever()
