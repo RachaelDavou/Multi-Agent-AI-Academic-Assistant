@@ -119,7 +119,7 @@ Two open-access OpenStax textbooks in `data/course_catalogue/` (PDF format, CC B
 | `Introductory Statistics 2e.pdf` | Introductory Statistics, 2nd Edition | OpenStax | https://assets.openstax.org/oscms-prodcms/media/documents/Introductory_Statistics_2e_-_WEB.pdf |
 
 All materials are licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
-© 1999–2026 Rice University. See [`SOURCES.md`](SOURCES.md) for full citations.
+© 1999–2026 Rice University. 
 
 Students can also upload their own documents at runtime — these are embedded and searchable within that session.
 
@@ -138,7 +138,7 @@ The raw PDFs are processed through a cleaning pipeline before being stored in Ch
 - Chunk overlap preserves context across split boundaries
 - Only `.pdf`, `.docx`, and `.txt` files are indexed — other file types are ignored
 
-See `notebooks/academic_assistant_demo.ipynb` for a full walkthrough of the pipeline.
+
 
 ## Submission Links
 
